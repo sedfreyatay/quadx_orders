@@ -9,6 +9,7 @@ use GuzzleHttp\Promise;
 class OrderRepository implements OrderInterface{
 
     private $source_uri = 'https://api.staging.lbcx.ph/v1/orders/';
+    private $timezone = 'Asia/Manila';
 
     /**
      * Get Orders from API
@@ -21,7 +22,7 @@ class OrderRepository implements OrderInterface{
             return false;
         }
 
-        $headers = ['X-Time-Zone' => 'Asia/Manila'];
+        $headers = ['X-Time-Zone' => $this->timezone];
         $client = new Client(['base_uri' => $this->source_uri, 'headers' => $headers]);
 
         foreach ($order_list as &$order){
