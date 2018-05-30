@@ -21,8 +21,8 @@ class OrderRepository implements OrderInterface{
             return false;
         }
 
-        $client = new Client(['base_uri' => $this->source_uri]);
-        //$headers = ['X-Time-Zone' => 'Asia/Manila'];
+        $headers = ['X-Time-Zone' => 'Asia/Manila'];
+        $client = new Client(['base_uri' => $this->source_uri, 'headers' => $headers]);
 
         foreach ($order_list as &$order){
             $order = $client->getAsync($order);
@@ -91,14 +91,12 @@ class OrderRepository implements OrderInterface{
 
         foreach ($data as $order_data){
             $order_key = $order_data->tracking_number.' ('.$order_data->status.')';
-            $tat = array_sort((array)$order_data->tat);
-            $history = [];
 
-            array_walk($tat, function($value, $key) use (&$history) {
-                $history[date('Y-m-d H:i:s.000000', $value)] = $key;
-            });
+            foreach ($order_data->tat as $status => $tat){
+                $history[$status] = $tat->date;
+            }
 
-            $order_info[$order_key]['history'] = $history;
+            $order_info[$order_key]['history'] = array_flip(array_sort($history));
             $order_info[$order_key]['breakdown'] = [
                 'subtotal' => $order_data->subtotal,
                 'shipping' => $order_data->shipping,
