@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class OrderRepoServiceProvider extends ServiceProvider
+class ShipmentRepoServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -24,7 +24,7 @@ class OrderRepoServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Interfaces\OrderInterface', 'App\Repositories\OrderRepository');
+        $this->app->bind('App\Interfaces\ShipmentInterface', 'App\Repositories\ShipmentRepository');
 
     }
 }

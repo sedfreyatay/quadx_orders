@@ -82,7 +82,8 @@ $app->singleton(
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
-$app->register(App\Providers\OrderRepoServiceProvider::class);
+$app->register(App\Providers\ShipmentRepoServiceProvider::class);
+$app->register(App\Providers\GuzzleHttpRepoServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
