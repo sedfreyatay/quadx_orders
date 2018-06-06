@@ -15,4 +15,4 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/order_transform', 'ShipmentController@processShipment');
+$router->get('/shipments', 'ShipmentController@processShipment');

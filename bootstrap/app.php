@@ -84,6 +84,7 @@ $app->singleton(
 
 $app->register(App\Providers\ShipmentRepoServiceProvider::class);
 $app->register(App\Providers\GuzzleHttpRepoServiceProvider::class);
+$app->register(App\Providers\DataPresentationRepoServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

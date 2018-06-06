@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Requests;
 use App\Interfaces\ShipmentInterface as ShipmentInterface;
 use App\Interfaces\GuzzleHttpInterface as GuzzleHttpInterface;
+use App\Interfaces\DataPresentationInterface as DataPresentationInterface;
+
 
 class ShipmentController extends Controller
 {
 
     private $shipment;
     private $http_request;
+    private $present;
     private $timezone = 'Asia/Manila';
 
     /**
@@ -18,10 +21,14 @@ class ShipmentController extends Controller
      * @param ShipmentInterface $shipment
      * @param GuzzleHttpInterface $http_request
      */
-    public function __construct(ShipmentInterface $shipment, GuzzleHttpInterface $http_request)
+    public function __construct(
+        ShipmentInterface $shipment,
+        GuzzleHttpInterface $http_request,
+        DataPresentationInterface $present )
     {
         $this->shipment = $shipment;
         $this->http_request = $http_request;
+        $this->present = $present;
     }
 
     /**
@@ -54,6 +61,6 @@ class ShipmentController extends Controller
         $shipments = $this->shipment->format_object($shipments);
 
         //print them out in a nice looking data
-        $this->shipment->present_data($shipments);
+        $this->present->present_data($shipments);
     }
 }

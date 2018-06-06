@@ -4,48 +4,17 @@ namespace App\Repositories;
 
 use App\Interfaces\ShipmentInterface;
 
-class ShipmentRepository implements ShipmentInterface{
-
+class ShipmentRepository implements ShipmentInterface
+{
     /**
-     * print out data
-     */
-    public function present_data($data)
-    {
-        if(empty($data)){
-            echo 'Something went wrong. Please try again.';
-            return false;
-        }
-
-        array_walk($data, array($this, 'array_printer'), 0);
-    }
-
-    /**
-     * Prints Array tree
-     * @param $item
-     * @param $key
-     * @param $depth
-     */
-    private function array_printer($item, $key, $depth) {
-        echo str_pad('', $depth * 4, '_', STR_PAD_LEFT);
-        echo $key;
-        if(is_array($item)) {
-            echo ": <br>";
-            array_walk($item, array($this, 'array_printer'), $depth+1);
-        } else {
-            echo ': '.$item."<br>";
-        }
-    }
-
-
-    /**
-     * Format data to the required values
      * @param $data
-     * @return bool
+     * @return array
      */
     public function format_object($data)
     {
+        $data_info = [];
         if(empty($data)){
-            return false;
+            return $data_info;
         }
 
         $data = array_map("json_decode", $data);
